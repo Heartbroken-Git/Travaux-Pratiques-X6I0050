@@ -29,4 +29,4 @@ CREATE TABLE Achats (
 );
 
 -- Requête altérant la table Achats afin de lui ajouter le prix
-ALTER TABLE Achats ADD COLUMN prix NUMBER;
+ALTER TABLE Achats ADD prix NUMBER;

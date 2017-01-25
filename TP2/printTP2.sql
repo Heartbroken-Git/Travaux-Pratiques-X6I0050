@@ -1,0 +1,34 @@
+/*
+	X6I0050 : TP2
+	Corentin CHÉDOTAL - 601A
+	Question 6 : Script SQL produissant sur un fichier particulier le résultat d'une requête
+*/
+
+SET ECHO OFF
+SET FEEDBACK OFF
+SET HEADING OFF
+SET PAGESIZE 0
+TTITLE 'Achats des clients au 28 janvier 2013'
+COLUMN idcl HEADING Idcl JUSTIFY LEFT
+COLUMN dateachat HEADING 'Date achat' JUSTIFY CENTER
+COLUMN genre HEADING 'Genre' JUSTIFY LEFT
+COLUMN prix HEADING 'Prix' JUSTIFY LEFT
+BREAK ON idcl SKIP 1
+COMPUTE AVG OF prix ON idcl
+COMPUTE SUM OF prix ON idcl
+SPOOL 2013-01-28-achats.lst
+
+SELECT idcl, dateachat, genre, prix
+FROM Achats NATURAL JOIN Livres
+WHERE dateachat <= TO_DATE('28/01/2013', 'DD/MM/YYYY')
+ORDER BY idcl, dateachat;
+
+SPOOL OFF
+SET ECHO ON
+SET FEEDBACK ON
+SET HEADING ON
+SET PAGESIZE 300
+TTITLE OFF
+CLEAR COLUMNS
+CLEAR BREAK
+CLEAR COMPUTES
