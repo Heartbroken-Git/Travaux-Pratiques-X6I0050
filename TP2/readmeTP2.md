@@ -7,9 +7,8 @@ Les requêtes SQL ont été séparées dans plusieurs fichiers SQL pour facilite
 - **cleanTP2.sql** : Requêtes générant et lançant des requêtes permettant la suppression du contenu et des tables en elle même pour répondre aux question 3 et 4.
 - **effacer.sql** : Fichier temporaire utilisés pour contenir les requêtes générées par le fichier **cleanTP2.sql**.
 - **alterTP2.sql** : Requêtes altérant la table Achats afin de répondre à la question 5.
-
+- **printTP2.sql** : Requêtes produisant le rapport de log demandé dans la question 6.
 
 ## Réponses aux autres questions
 
 2. La requête de la question 2 permet d'afficher les requêtes SQL *DELETE FROM* que l'on peut réaliser sur les tables actuellement présentes.
-
