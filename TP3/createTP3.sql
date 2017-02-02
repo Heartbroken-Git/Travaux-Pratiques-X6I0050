@@ -1,8 +1,10 @@
 /*
 	X6I0050 : TP3
 	Corentin CHÉDOTAL - 601A
-	Question 1 : Script SQL de création des tables et des triggers
+	Question 2 : Script SQL de création des tables et des triggers
 */
+
+SET SERVEROUTPUT ON
 
 --Tables du TP1
 CREATE TABLE Clients (
@@ -38,25 +40,28 @@ CREATE TABLE Avis (
 	CONSTRAINT note_check CHECK (note >= 0 AND note <= 20)
 );
 
---Trigger mettant en place le calcul de la moyenne des notes reçues par le livre
+--Trigger mettant en place le calcul de la moyenne des notes reçues par le livre - Question 2
 CREATE OR REPLACE TRIGGER L3_3Trig_avgNote_beforeInsert
 AFTER INSERT OR UPDATE OR DELETE
 	ON Avis
 	FOR EACH ROW
 	
-DECLARE moyNote Livres.note_moy%TYPE;
-DECLARE refLivreU := '&inputRefl';
+DECLARE 
+	moyNote Livres.note_moy%TYPE;
+	c NUMBER;
 
 BEGIN
-
 	SELECT AVG(note) INTO moyNote
 	FROM Avis
-	WHERE refl = refLivreU;
+	WHERE refl = :new.refl;
 	
-	:new.note_moy = moyNote;
+	UPDATE Livres
+	SET note_moy = moyNote
+	WHERE refl = :new.refl;
 	
 END;
 /
+SHOW ERROR
 
 --Nouvelles tables requises en introduction du TP3
 CREATE TABLE Parcours (
@@ -78,4 +83,9 @@ CREATE TABLE Inscrip_parcours (
 	CONSTRAINT inscrip_parcours_key PRIMARY KEY (idcl, idp)
 );
 
---FAIRE TABLE INSCRIP_EVT
+CREATE TABLE Inscrip_evt (
+	idcl NUMBER REFERENCES Clients(idcl),
+	idp VARCHAR2(10) REFERENCES Parcours(idp),
+	id_evt VARCHAR2(10,)
+	CONSTRAINT inscrip_parcours_key PRIMARY KEY (idcl, idp, id_evt)
+);
