@@ -86,6 +86,6 @@ CREATE TABLE Inscrip_parcours (
 CREATE TABLE Inscrip_evt (
 	idcl NUMBER REFERENCES Clients(idcl),
 	idp VARCHAR2(10) REFERENCES Parcours(idp),
-	id_evt VARCHAR2(10,)
+	id_evt VARCHAR2(10),
 	CONSTRAINT inscrip_parcours_key PRIMARY KEY (idcl, idp, id_evt)
 );
