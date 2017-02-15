@@ -15,5 +15,5 @@ BEGIN
 	UPDATE Livres
 	SET note_moy = moyNote
 	WHERE refl = refLivre;
-END;
+END L3_3_update_moyNote;
 /

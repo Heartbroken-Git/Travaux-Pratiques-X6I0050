@@ -61,7 +61,6 @@ BEGIN
 	
 END;
 /
-SHOW ERROR
 
 --Nouvelles tables requises en introduction du TP3
 CREATE TABLE Parcours (
@@ -87,5 +86,28 @@ CREATE TABLE Inscrip_evt (
 	idcl NUMBER REFERENCES Clients(idcl),
 	idp VARCHAR2(10) REFERENCES Parcours(idp),
 	id_evt VARCHAR2(10),
-	CONSTRAINT inscrip_parcours_key PRIMARY KEY (idcl, idp, id_evt)
+	CONSTRAINT inscrip_evt_key PRIMARY KEY (idcl, idp, id_evt)
 );
+
+--Trigger vérifiant qu'un utilisateur à bien acheté un livre avant d'émettre un avis dessus - Question 3
+CREATE OR REPLACE TRIGGER L3_3Trig_ownCheck_beforeInsert
+BEFORE INSERT ON Avis
+FOR EACH ROW
+
+DECLARE
+	nbDonneurAvis NUMBER;
+	pas_achete_livre EXCEPTION;
+BEGIN
+	SELECT COUNT(idcl) INTO nbDonneurAvis
+	FROM Achats
+	WHERE refl = :new.refl AND idcl = :new.refl;
+	
+	IF (nbDonneurAvis = 0) THEN
+		RAISE pas_achete_livre;
+	END IF;
+EXCEPTION
+	WHEN pas_achete_livre THEN
+		DBMS_OUTPUT.put_line('Impossible d''ajouter l''avis, avez-vous bien acheté le livre ?');	
+END;
+/
+SHOW ERROR	
