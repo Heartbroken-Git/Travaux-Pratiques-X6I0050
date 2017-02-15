@@ -1,3 +1,5 @@
-
 # Gedit's autosave files
 *~
+
+# Fichiers temporaires de supression des bases de données
+effacer.sql
