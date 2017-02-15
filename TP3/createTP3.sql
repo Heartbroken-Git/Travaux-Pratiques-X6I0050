@@ -110,4 +110,24 @@ EXCEPTION
 		DBMS_OUTPUT.put_line('Impossible d''ajouter l''avis, avez-vous bien acheté le livre ?');	
 END;
 /
-SHOW ERROR	
+
+--Trigger proposant des parcours du même type que ceux liés au livre acheté - Question 6
+CREATE OR REPLACE TRIGGER L3_3Trig_propParcours
+AFTER INSERT ON Achats
+FOR EACH ROW
+
+DECLARE
+	genreAchete Achats.refl%TYPE;
+	display Parcours.intitulep%TYPE;
+BEGIN
+	SELECT genre INTO genreAchete
+	FROM Livres
+	WHERE refl = :new.refl;
+
+	SELECT intitulep INTO display
+	FROM Parcours
+	WHERE genre = genreAchete AND date_deb >= sysdate;
+	
+	DBMS_OUTPUT.put(display);
+END;
+/ 

@@ -4,7 +4,6 @@
 	Question 4 : Procédure assurant que la modification d'un avis ce fait par le bon client et sur le bon livre
 */
 CREATE OR REPLACE PROCEDURE L3_3_update_avis (refLivre IN Livres.refl%type, refClient IN Avis.idcl%TYPE) AS
-DECLARE
 	mauvais_avis EXCEPTION;
 	nbAvis NUMBER;
 	newNote Avis.note%TYPE;
@@ -28,3 +27,4 @@ EXCEPTION
 	WHEN mauvais_avis THEN
 		DBMS_OUTPUT.put_line('Problème lors de la modification de l''avis, celui-ci est inexistant.');
 END L3_3_update_avis;
+/
