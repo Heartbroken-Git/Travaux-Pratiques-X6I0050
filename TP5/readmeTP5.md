@@ -51,4 +51,6 @@ Les requêtes SQL ont été séparées dans plusieurs fichiers SQL pour facilite
   
 ### Visualisation du plan d'exécution d'une requête
 
-1. 
+1. On constate à la lecture des fichiers log que le plan d'exécution choisi par le SGBD est le même pour R2 et R3
+2. L'ajout d'un index augmente très clairement la vitesse d'exécution de la requête 1 mais ralentit la requête 4
+3. *optionnel*

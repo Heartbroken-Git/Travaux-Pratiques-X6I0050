@@ -1,0 +1,52 @@
+Plan hash value: 170757635                                                      
+                                                                                
+--------------------------------------------------------------------------------
+---------------                                                                 
+                                                                                
+| Id  | Operation                    | Name           | Rows  | Bytes | Cost (%C
+PU)| Time     |                                                                 
+                                                                                
+--------------------------------------------------------------------------------
+---------------                                                                 
+                                                                                
+|   0 | SELECT STATEMENT             |                |     5 |  1120 |  4537   
+(1)| 00:00:55 |                                                                 
+                                                                                
+|   1 |  NESTED LOOPS                |                |       |       |         
+   |          |                                                                 
+                                                                                
+|   2 |   NESTED LOOPS               |                |     5 |  1120 |  4537   
+(1)| 00:00:55 |                                                                 
+                                                                                
+|*  3 |    HASH JOIN                 |                |     5 |   620 |  4527   
+(1)| 00:00:55 |                                                                 
+                                                                                
+|*  4 |     HASH JOIN                |                |     5 |   340 |  2850   
+(1)| 00:00:35 |                                                                 
+                                                                                
+|*  5 |      TABLE ACCESS FULL       | AUTHORS        |     2 |    50 |   618   
+(1)| 00:00:08 |                                                                 
+                                                                                
+|   6 |      TABLE ACCESS FULL       | COLLABORATIONS |  1212K|    49M|  2227   
+(1)| 00:00:27 |                                                                 
+                                                                                
+|   7 |     TABLE ACCESS FULL        | FACTS          |   473K|    25M|  1676   
+(1)| 00:00:21 |                                                                 
+                                                                                
+|*  8 |    INDEX UNIQUE SCAN         | PK_PUBLICATION |     1 |       |     1   
+(0)| 00:00:01 |                                                                 
+                                                                                
+|   9 |   TABLE ACCESS BY INDEX ROWID| PUBLICATIONS   |     1 |   100 |     2   
+(0)| 00:00:01 |                                                                 
+                                                                                
+--------------------------------------------------------------------------------
+---------------                                                                 
+                                                                                
+                                                                                
+Predicate Information (identified by operation id):                             
+---------------------------------------------------                             
+                                                                                
+   3 - access("FACTS"."SQUAD_ID"="COLLABORATIONS"."SQUAD_ID")                   
+   4 - access("COLLABORATIONS"."AUTHOR_ID"="AUTHORS"."AUTHOR_ID")               
+   5 - filter("AUTHORS"."LAST_NAME"='Rosenthal')                                
+   8 - access("PUBLICATIONS"."PUBLICATION_ID"="FACTS"."PUBLICATION_ID")         

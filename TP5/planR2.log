@@ -1,0 +1,32 @@
+Plan hash value: 3725789566                                                     
+                                                                                
+--------------------------------------------------------------------------------
+---                                                                             
+                                                                                
+| Id  | Operation          | Name         | Rows  | Bytes | Cost (%CPU)| Time   
+  |                                                                             
+                                                                                
+--------------------------------------------------------------------------------
+---                                                                             
+                                                                                
+|   0 | SELECT STATEMENT   |              | 37258 |  4875K|  3593   (1)| 00:00:4
+4 |                                                                             
+                                                                                
+|*  1 |  HASH JOIN         |              | 37258 |  4875K|  3593   (1)| 00:00:4
+4 |                                                                             
+                                                                                
+|*  2 |   TABLE ACCESS FULL| FACTS        | 37258 |  1237K|  1677   (1)| 00:00:2
+1 |                                                                             
+                                                                                
+|   3 |   TABLE ACCESS FULL| PUBLICATIONS |   481K|    45M|  1914   (1)| 00:00:2
+3 |                                                                             
+                                                                                
+--------------------------------------------------------------------------------
+---                                                                             
+                                                                                
+                                                                                
+Predicate Information (identified by operation id):                             
+---------------------------------------------------                             
+                                                                                
+   1 - access("PUBLICATIONS"."PUBLICATION_ID"="FACTS"."PUBLICATION_ID")         
+   2 - filter(TO_NUMBER("FACTS"."DATE_ID")=2008)                                
